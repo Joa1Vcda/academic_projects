@@ -1,5 +1,5 @@
 import numpy as np
-from validações.validacao_gauss import eliminacao_gauss, substituicao, verificacao_gauss
+from validacoes.validacao_gauss import eliminacao_gauss, substituicao, verificacao_gauss
 from ferramentas.gerar_matriz_valida import gerar_matriz_valida
 import ferramentas.formatador as f
 

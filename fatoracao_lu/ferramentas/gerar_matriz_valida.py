@@ -1,6 +1,6 @@
 import numpy as np
 import warnings
-from validações.validacao_lu import fatoralu
+from validacoes.validacao_lu import fatoralu
 
 """O código de fatoração LU obtido em:(Cálculo Numérico, 2020) não faz uso de 
 pivoteamento parcial,isso faz com que tenha casos onde a fatoração LU ou Gauss não 
