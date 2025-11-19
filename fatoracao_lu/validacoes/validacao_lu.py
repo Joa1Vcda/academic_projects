@@ -7,8 +7,8 @@ esse arquivo para servir como base, em outros arquivos usarei as funções que f
 validadas por aqui só que sem a necessidade de retorna o resultado no terminal,
 assim eu vou ter certeza que meu resultado está correto sem poluir o terminal"""
 
-"""classe para facilitar a solução do sistema matriz_lower,matriz_upper com o vetor vetor_b"""
 
+"""classe para facilitar a solução do sistema matriz_lower,matriz_upper com o vetor vetor_b"""
 
 class Solucionadorlu:
     def __init__(self, matriz_lower, matriz_upper, vetor_b):
@@ -44,13 +44,7 @@ vetor_b = np.random.randint(0, 10, size=3).astype(
     float
 )  # gerador de vetores aleatórios
 
-"""caso queira um vetor fixo, manipule a linha abaixo e o remova de # antes dele,
-além disso, comente o gerador de vetores aleatório colocando um # antes dele"""
-# vetor_b = np.array([6.0, 0.0, 8.0])
-
 """Função "fatoralu" obtida do livro (Cálculo Numérico, 2020)"""
-
-
 def fatoralu(matriz_A):
     matriz_upper = np.copy(matriz_A)
     n = np.shape(matriz_upper)[0]

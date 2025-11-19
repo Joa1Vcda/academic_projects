@@ -9,9 +9,14 @@ from validacoes.validacao_multiplas_execucoes_gauss import multiplas_execucoes_g
 from validacoes.validacao_multiplas_execucoes_lu import multiplas_execucoes_lu
 from ferramentas.formatador import formatador
 
-"""Função main para executar validações e medições de tempo comparativas entre Fatoração LU e Eliminação de Gauss.Para ver as validações, descomente as linhas correspondentes. Tenha responsabilidade ao executar múltiplas validações, pois elas podem gerar uma grande quantidade de saída no console."""
+"""Função main para executar validações e medições de tempo comparativas entre 
+Fatoração LU e Eliminação de Gauss.Para ver as validações, descomente as linhas 
+correspondentes. Tenha responsabilidade ao executar múltiplas validações, pois elas 
+podem gerar uma grande quantidade de saída no console."""
 
-"""Além disso é possível ajustar os tamanhos das matrizes e o número de vetores por tamanho conforme necessário. Porém tome cuidado com valores muito altos, pois podem causar lentidão."""
+"""Além disso é possível ajustar os tamanhos das matrizes e o número de vetores 
+por tamanho conforme necessário. Porém tome cuidado com valores muito altos, pois 
+podem causar lentidão."""
 
 
 def main():
@@ -20,10 +25,10 @@ def main():
     numero_de_vetores_por_tamanho = 1000
 
     # Executar múltiplas validações
-    print("Validação Múltipla - Fatoração LU")
-    multiplas_execucoes_lu(tamanhos_N, numero_de_vetores_por_tamanho)
-    print("\nValidação Múltipla - Eliminação de Gauss")
-    multiplas_execucoes_gauss(tamanhos_N, numero_de_vetores_por_tamanho)
+    # print("Validação Múltipla - Fatoração LU")
+    # multiplas_execucoes_lu(tamanhos_N, numero_de_vetores_por_tamanho)
+    # print("\nValidação Múltipla - Eliminação de Gauss")
+    # multiplas_execucoes_gauss(tamanhos_N, numero_de_vetores_por_tamanho)
 
     # Medir tempos
     x, y, z = resolver_lu(tamanhos_N, numero_de_vetores_por_tamanho)

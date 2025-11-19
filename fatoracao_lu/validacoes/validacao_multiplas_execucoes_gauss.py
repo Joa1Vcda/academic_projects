@@ -3,9 +3,7 @@ from validacoes.validacao_gauss import eliminacao_gauss, substituicao, verificac
 from ferramentas.gerar_matriz_valida import gerar_matriz_valida
 import ferramentas.formatador as f
 
-tamanhos = [3, 10, 50, 100]
-numero_de_vetores_por_tamanho = 5
-
+"""O que eu quero avaliar é comparar uma matriz com vários vetores diferentes que é exatamente aonde a fatoração LU ganha da eliminação de Gauss, a eliminação de Gauss eu tenho que colocar dentro do loop while pois a cada vetor gerado é necessário uma nova eliminação de Gauss a solução de sistemas deve estar dentro do mesmo while que está dentro do for cuja função é apenas gerar uma matriz para cada tamanho, é um pouco complexo mas em resumo:uma matriz se relaciona com vários vetores, assim que a quantidade de vetores chegar ao valor desejado, o compilador volta para o loop for e muda o tamanho da matriz e dos vetores, então é se criado mais uma matriz só que com tamanho maior, depois disso mais vetores serão criados para se relacionar com essa matriz, isso vai ocorrer em todos os tamanhos desejados, caso queira ver a validação,execute em main.py"""
 
 def multiplas_execucoes_gauss(tamanhos, numero_de_vetores_por_tamanho):
     for n in tamanhos:
@@ -28,7 +26,3 @@ def multiplas_execucoes_gauss(tamanhos, numero_de_vetores_por_tamanho):
             )
             vetor += 1
 
-
-if __name__ == "__main__":
-    f.formatador()
-    multiplas_execucoes_gauss(tamanhos, numero_de_vetores_por_tamanho)

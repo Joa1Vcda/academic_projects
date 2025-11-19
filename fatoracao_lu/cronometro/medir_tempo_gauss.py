@@ -5,10 +5,6 @@ import time
 from . import cronometro_gauss as timer
 import ferramentas.formatador as f
 
-numero_de_vetores_por_tamanho = 1000
-tamanho = [3, 10, 50, 100]
-
-
 def multiplas_execucoes_gauss_com_tempo(tamanho, numero_de_vetores_por_tamanho):
     A = np.array([[2.0, 3.0, 1.0], [4.0, 7.0, 5.0], [6.0, 5.0, 2.0]])
     b = np.array([3.0, 4.0, 5.0])
@@ -49,9 +45,3 @@ def multiplas_execucoes_gauss_com_tempo(tamanho, numero_de_vetores_por_tamanho):
         tempo_total_solucao.append(tempo_total_substituicao)
     return tempo_total_gauss, tempo_total_escalonamento, tempo_total_solucao
 
-
-if __name__ == "__main__":
-    f.formatador()
-    amarelo, verde, vermelho = multiplas_execucoes_gauss_com_tempo(
-        tamanho, numero_de_vetores_por_tamanho
-    )

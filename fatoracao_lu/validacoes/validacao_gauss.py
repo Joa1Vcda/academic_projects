@@ -47,9 +47,12 @@ def verificacao_gauss(
         f"\n7. a Verificação acima deve ser igual ao vetor b original:\n {vetor_original}"
     )
 
-if __name__ == "__main__":
+def gauss():
     f.formatador()
     copia_a, copia_b = eliminacao_gauss(matriz_a, vetor_b)
     solucao = substituicao(copia_a, copia_b)
     solucao_np = np.array(solucao)
     verificacao_gauss(matriz_a, vetor_b, copia_a, copia_b, solucao_np)
+
+if __name__ == "__main__":
+    gauss()

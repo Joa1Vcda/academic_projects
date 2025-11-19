@@ -5,10 +5,6 @@ from .cronometro_lu import tempo_lu as timer
 from ferramentas.gerar_matriz_valida import gerar_matriz_valida
 import ferramentas.formatador as f
 
-numero_de_vetores_por_tamanho = 1000
-tamanho = [3, 10, 50, 100]
-
-
 def multiplas_execucoes_lu_com_tempo(tamanho, numero_de_vetores_por_tamanho):
     # Aquecendo o sistema pois a primeira execução tende a ser mais lenta
     A = np.array([[2.0, 3.0, 1.0], [4.0, 7.0, 5.0], [6.0, 5.0, 2.0]])
@@ -47,8 +43,3 @@ def multiplas_execucoes_lu_com_tempo(tamanho, numero_de_vetores_por_tamanho):
         tempo_total_fatoracao_lu.append(tempo_total_fatoracao)
         tempo_total_solucao.append(tempo_total_substituicao)
     return tempo_total_lu, tempo_total_fatoracao_lu, tempo_total_solucao
-
-
-if __name__ == "__main__":
-    f.formatador()
-    multiplas_execucoes_lu_com_tempo(tamanho, numero_de_vetores_por_tamanho)
