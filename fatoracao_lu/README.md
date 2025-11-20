@@ -1,7 +1,7 @@
 # fatoracao_lu
 # Fatoração LU vs Eliminação de Gauss: Uma Análise Comparativa
 
-Esssa pasta do repositório contém o código fonte e os experimentos desenvolvidos para a apresentação no **IV SEPEF (01/12/2025)** do IFMA - Campus Imperatriz.
+Essa pasta do repositório contém o código fonte e os experimentos desenvolvidos para a apresentação no **IV SEPEF (01/12/2025)** do IFMA - Campus Imperatriz.
 
 **Autor:** João Vitor Cirqueira de Araújo
 **Instituição:** Instituto Federal do Maranhão (IFMA)
