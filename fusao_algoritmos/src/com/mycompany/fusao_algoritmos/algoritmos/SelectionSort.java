@@ -2,19 +2,29 @@ package com.mycompany.fusao_algoritmos.algoritmos;
 
 public class SelectionSort
 {
-    public static void PrintResult(int data[])
+    public static void printResult(int[] data)
     {
-        SelectionSort(data);
+        int[] copy = data.clone();
+        selectionSort(copy);
 
         int i = 0;
 
-        for(  ; i < data.length; i++)
+        for(  ; i < copy.length; i++)
         {
-            System.out.println(data[i]);
+            System.out.println(copy[i]);
         }
+    System.out.println();
     }
 
-    private static void SelectionSort(int data[])
+    public static long measureTime(int[] data) {
+        int[] copy = data.clone(); // Trabalha com cópia
+        long startTime = System.nanoTime();
+        selectionSort(copy);
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+
+    private static void selectionSort(int[] data)
     {
         for (int i = 0; i < data.length; i++)
         {
