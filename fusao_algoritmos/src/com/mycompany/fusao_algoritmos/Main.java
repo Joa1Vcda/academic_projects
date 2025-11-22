@@ -9,36 +9,46 @@ public class Main {
     private static final int DATA_SIZE = 10000;
 
     static void main(String[] args) {
-        System.out.println("=== TRABALHO DE ANÁLISE DE ALGORITMOS ===");
+        System.out.println("\n" + "=== TRABALHO DE ANÁLISE DE ALGORITMOS ===");
         System.out.println("Algoritmos: Selection Sort (Quadrático) vs Merge Sort (Log-linear)");
         System.out.println("Experimentos: " + REPETITIONS + " repetições\n");
 
         // 1. Encontrar n0 empiricamente
-        int n0 = encontrarN0ordenado();
+        int n0ordenado = encontrarN0ordenado();
+        int n0invertido = encontrarN0invertido();
         System.out.println("\n" + "=".repeat(50));
-        System.out.println("n0 ENCONTRADO: " + n0);
+        System.out.println("n0 para o vetor ordenado encontrado: " + n0ordenado);
+        System.out.println("n0 para o vetor invertido encontrado: " + n0invertido);
         System.out.println("=".repeat(50) + "\n");
 
         // 2. Executar experimentos principais
-        executarExperimentosCompletos(n0);
+        executarExperimentosCompletos(n0ordenado, n0invertido);
     }
 
     // Método para encontrar n0 empiricamente
     private static int encontrarN0ordenado() {
-        System.out.println("=== FASE 1: ENCONTRANDO n0 ===");
+        System.out.println("=== FASE 1: ENCONTRANDO n0 para o vetor ordenado ===");
 
-        int[] tamanhosTeste = {10, 50, 55, 60, 75, 100, 200, 500, 1000};
-        int melhorN0ordenado = 100; // valor padrão
+        int[] tamanhosTeste = {10, 25, 35, 42, 50, 55, 60, 75, 100, 200, 500, 1000};
+        int melhorN0ordenado = 50; // valor padrão
 
         System.out.printf("%-10s | %-15s | %-15s | %-10s%n",
                 "Tamanho", "Selection Sort", "Merge Sort", "Mais Rápido");
         System.out.println("-".repeat(60));
 
         for (int tamanho : tamanhosTeste) {
-            int[] dadosAleatorios = DataSets.RetrieveOrderedDataset();
+            int[] dadosOrdenados = DataSets.RetrieveOrderedDataset(tamanho);
 
-            long tempoSelection = SelectionSort.measureTime(dadosAleatorios);
-            long tempoMerge = MergeSort.measureTime(dadosAleatorios);
+            long tempoSelection = 0, tempoMerge = 0;
+            int amostras = 1000;
+
+            for (int i = 0; i < amostras; i++) {
+                tempoSelection += SelectionSort.measureTime(Arrays.copyOf(dadosOrdenados, tamanho));
+                tempoMerge += MergeSort.measureTime(Arrays.copyOf(dadosOrdenados, tamanho));
+            }
+
+            tempoSelection /= amostras;
+            tempoMerge /= amostras;
 
             String maisRapido = tempoMerge < tempoSelection ? "MERGE" : "SELECTION";
             System.out.printf("%-10d | %-15d | %-15d | %-10s%n",
@@ -47,22 +57,64 @@ public class Main {
             // Atualiza n0 quando Merge Sort se tornar consistentemente mais rápido
             if (tempoMerge < tempoSelection) {
                 melhorN0ordenado = tamanho;
-                break;
+                // quando corrigir a anomalia que eu defini no grupo, tira a linha abaixo de comentário que ele vai
+                // parar no n0
+                //break;
             }
         }
 
         return melhorN0ordenado;
     }
 
-    private static void executarExperimentosCompletos(int n0) {
+    private static int encontrarN0invertido() {
+        System.out.println(" ");
+
+        int[] tamanhosTeste = {10, 25, 35, 42, 50, 55, 60, 75, 100, 200, 500, 1000};
+        int melhorN0invertido = 50; // valor padrão
+
+        System.out.printf("%-10s | %-15s | %-15s | %-10s%n",
+                "Tamanho", "Selection Sort", "Merge Sort", "Mais Rápido");
+        System.out.println("-".repeat(60));
+
+        for (int tamanho : tamanhosTeste) {
+            int[] dadosInvertido = DataSets.RetrieveUnorderedDataset(tamanho);
+
+            long tempoSelection = 0, tempoMerge = 0;
+            int amostras = 100;
+
+            for(int i = 0; i < amostras; i++) {
+                tempoSelection += SelectionSort.measureTime(Arrays.copyOf(dadosInvertido, tamanho));
+                tempoMerge += MergeSort.measureTime(Arrays.copyOf(dadosInvertido, tamanho));
+            }
+
+            tempoSelection /= amostras;
+            tempoMerge /= amostras;
+
+            String maisRapido = tempoMerge < tempoSelection ? "MERGE" : "SELECTION";
+            System.out.printf("%-10d | %-15d | %-15d | %-10s%n",
+                    tamanho, tempoSelection, tempoMerge, maisRapido);
+
+            // Atualiza n0 quando Merge Sort se tornar consistentemente mais rápido
+            if (tempoMerge < tempoSelection) {
+                melhorN0invertido = tamanho;
+                // quando corrigir a anomalia que eu defini no grupo, tira a linha abaixo de comentário que ele vai
+                // parar no n0
+                //break;
+            }
+        }
+        return melhorN0invertido;
+    }
+
+    private static void executarExperimentosCompletos(int n0ordenado,int n0invertido) {
         System.out.println("=== FASE 2: EXECUTANDO EXPERIMENTOS ===");
 
         // Carregar datasets
-        int[] dadosOrdenados = DataSets.RetrieveOrderedDataset();
-        int[] dadosInvertidos = DataSets.RetrieveUnorderedDataset();
+        int[] dadosOrdenados = DataSets.RetrieveOrderedDatasetTeste();
+        int[] dadosInvertidos = DataSets.RetrieveUnorderedDatasetTeste();
 
         System.out.println("Tamanho dos datasets: " + DATA_SIZE + " elementos");
-        System.out.println("n0 utilizado: " + n0);
+        System.out.println("n0 utilizado para o vetor ordenado: " + n0ordenado);
+        System.out.println("n0 utilizado para o vetor invertido: " + n0invertido);
         System.out.println("Repetições: " + REPETITIONS);
 
         // Executar para dados ordenados
@@ -75,7 +127,7 @@ public class Main {
         ResultadoExperimento resultadosOrdenadosMerge = executarAlgoritmo(
                 "Merge Sort", dadosOrdenados, REPETITIONS, false, 0);
         ResultadoExperimento resultadosOrdenadosHybrid = executarAlgoritmo(
-                "Hybrid Sort", dadosOrdenados, REPETITIONS, true, n0);
+                "Hybrid Sort", dadosOrdenados, REPETITIONS, true, n0ordenado);
 
         exibirResultados(resultadosOrdenadosSelection);
         exibirResultados(resultadosOrdenadosMerge);
@@ -91,7 +143,7 @@ public class Main {
         ResultadoExperimento resultadosInvertidosMerge = executarAlgoritmo(
                 "Merge Sort", dadosInvertidos, REPETITIONS, false, 0);
         ResultadoExperimento resultadosInvertidosHybrid = executarAlgoritmo(
-                "Hybrid Sort", dadosInvertidos, REPETITIONS, true, n0);
+                "Hybrid Sort", dadosInvertidos, REPETITIONS, true, n0invertido);
 
         exibirResultados(resultadosInvertidosSelection);
         exibirResultados(resultadosInvertidosMerge);
@@ -99,22 +151,23 @@ public class Main {
     }
 
     // Método para executar um algoritmo múltiplas vezes
-    private static ResultadoExperimento executarAlgoritmo(String nomeAlgoritmo, int[] dados,int repeticoes,
+    private static ResultadoExperimento executarAlgoritmo(String nomeAlgoritmo, int[] dados, int repeticoes,
                                                           boolean ehHibrido, int n0) {
         long[] tempos = new long[repeticoes];
 
         for (int i = 0; i < repeticoes; i++) {
+            int[] copiaDados = Arrays.copyOf(dados, dados.length);
             long inicio = System.nanoTime();
 
             if (ehHibrido) {
-                HybridSort.measureTime(dados, n0);
+                HybridSort.measureTime(copiaDados, n0);
             } else {
                 switch (nomeAlgoritmo) {
                     case "Selection Sort":
-                        SelectionSort.measureTime(dados);
+                        SelectionSort.measureTime(copiaDados);
                         break;
                     case "Merge Sort":
-                        MergeSort.measureTime(dados);
+                        MergeSort.measureTime(copiaDados);
                         break;
                 }
             }
@@ -129,14 +182,12 @@ public class Main {
     // Método para exibir resultados formatados
     private static void exibirResultados(ResultadoExperimento resultado) {
         System.out.printf("\n%s:%n", resultado.nomeAlgoritmo);
-        System.out.printf("  Mínimo:    %,12d ns%n", resultado.minimo);
-        System.out.printf("  Máximo:    %,12d ns%n", resultado.maximo);
-        System.out.printf("  Médio:     %,12.2f ns%n", resultado.media);
-        System.out.printf("  Moda:      %,12d ns%n", resultado.moda);
+        System.out.printf("  Mínimo:     %,12d ns%n", resultado.minimo);
+        System.out.printf("  Máximo:     %,12d ns%n", resultado.maximo);
+        System.out.printf("  Médio:      %,12.2f ns%n", resultado.media);
+        System.out.printf("  Moda:       %,12d ns%n", resultado.moda);
         System.out.printf("  Desvio Pad: %,12.2f ns%n", resultado.desvioPadrao);
     }
-
-
     // Classe para armazenar resultados do experimento
     static class ResultadoExperimento {
         String nomeAlgoritmo;
@@ -145,7 +196,6 @@ public class Main {
         double media;
         long moda;
         double desvioPadrao;
-        int n0;
 
         ResultadoExperimento(String nomeAlgoritmo, long[] tempos) {
             this.nomeAlgoritmo = nomeAlgoritmo;

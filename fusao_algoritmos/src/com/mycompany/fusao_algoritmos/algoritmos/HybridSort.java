@@ -1,5 +1,7 @@
 package com.mycompany.fusao_algoritmos.algoritmos;
 
+import java.util.Arrays;
+
 public class HybridSort {
     private final int n0;
 
@@ -17,7 +19,6 @@ public class HybridSort {
         return endTime - startTime;
     }
 
-    // Método público para imprimir resultados
     public static void printResult(int[] data, int n0) {
         int[] copy = data.clone();
         new HybridSort(n0).hybridSort(copy);
@@ -43,26 +44,15 @@ public class HybridSort {
         }
 
         // Divisão do vetores menores que eu citei ocorre aqui
-        int middle = length / 2;
-        int[] left = new int[middle];
-        int[] right = new int[length - middle];
+        int mid = data.length / 2;
+        int[] left = Arrays.copyOfRange(data, 0, mid);
+        int[] right = Arrays.copyOfRange(data, mid, data.length);
 
-        int i = 0; // Para a array esquerda
-        int j = 0; // Para a array direita
-
-        // Vai dividindo até chegar num ponto bem pequeno
-        for (; i < length; i++) {
-            if (i < middle)
-                left[i] = data[i];
-            else {
-                right[j] = data[i];
-                j++;
-            }
-        }
-        // Ordena recursivamente
+        // Vai dividindo em mini vetores e ordenando quando os vetores tiverem o tamanho = n0
         hybridSort(left);
         hybridSort(right);
 
+        //reorganiza os vetores :)
         merge(left, right, data);
     }
 
@@ -81,8 +71,7 @@ public class HybridSort {
         }
     }
 
-    // BOM, aqui eu tive que mudar só na hora de definir os dois "lados", o código do loirin só funciona para vetores
-    // de índice par, mas como eu não sei o n0 o ideal é
+    // expliquei o porque da alteração lá no MergeSort.java
     private static void merge(int[] left, int[] right, int[] data) {
         int leftSize = left.length;
         int rightSize = right.length;

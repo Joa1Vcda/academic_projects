@@ -2,7 +2,7 @@ package com.mycompany.fusao_algoritmos.algoritmos;
 
 public class MergeSort {
 
-    // Método público para imprimir resultados
+    // Loirin Issues
     public static void PrintResult(int[] data)
     {
         int[] copy = data.clone();
@@ -14,7 +14,15 @@ public class MergeSort {
     System.out.println();
     }
 
-    // Método recursivo do merge sort
+    public static long measureTime(int[] data) {
+        int[] copy = data.clone();
+        mergeSort(copy);
+        long startTime = System.nanoTime();
+        mergeSort(copy);
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+    }
+    // Loirin mecanics
     private static void mergeSort(int[] data)
     {
         int length = data.length;
@@ -27,8 +35,8 @@ public class MergeSort {
         int[] left = new int[middle];
         int[] right = new int[length - middle];
 
-        int i = 0; // Para a array esquerda
-        int j = 0; // Para a array direita
+        int i = 0;
+        int j = 0;
 
         for (; i < length; i++)
         {
@@ -47,11 +55,12 @@ public class MergeSort {
         merge(left, right, data);
     }
 
-    // Método para combinar duas subarrays ordenadas
+    // Código do loirin só mudando a declaração do left size e do right size, o dele funcionava mas só para vetores
+    //de índice par, como vou usar essa base pra calcular o n0, é importante a divisão ser feita da forma que eu fiz
     private static void merge(int[] left, int[] right, int[] data)
     {
-        int leftSize = data.length / 2;
-        int rightSize = data.length - leftSize;
+        int leftSize = left.length;
+        int rightSize = right.length;
         int i = 0, l = 0, r = 0;
 
         while (l < leftSize && r < rightSize)
@@ -83,15 +92,6 @@ public class MergeSort {
             i++;
             r++;
         }
-}
-
-    // Método utilitário para medir tempo de execução
-    public static long measureTime(int[] data) {
-        int[] copy = data.clone();
-        long startTime = System.nanoTime();
-        mergeSort(copy);
-        long endTime = System.nanoTime();
-        return endTime - startTime;
     }
 }
 

@@ -18,12 +18,14 @@ public class SelectionSort
 
     public static long measureTime(int[] data) {
         int[] copy = data.clone(); // Trabalha com cópia
+        selectionSort(copy);
         long startTime = System.nanoTime();
         selectionSort(copy);
         long endTime = System.nanoTime();
         return endTime - startTime;
     }
 
+    // Código do loiros
     private static void selectionSort(int[] data)
     {
         for (int i = 0; i < data.length; i++)
